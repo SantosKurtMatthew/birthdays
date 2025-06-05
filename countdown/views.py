@@ -33,11 +33,13 @@ class CountdownDetailView(DetailView):
             birthday_day
         )
         time_remaining = upcoming_birthday - datetime.datetime.now()
-        print("Today is ")
-        print(datetime.datetime.now())
-        print("there is this much left:")
-        print(time_remaining)
         context['time_remaining'] = time_remaining
+        context['days'] = time_remaining.days
+        context['hours'] = time_remaining.seconds // 3600
+        context['minutes'] = (time_remaining.seconds % 3600) // 60
+        context['seconds'] = time_remaining.seconds % 60
+        
+
         return context
 
 class CountdownCreateView(CreateView):

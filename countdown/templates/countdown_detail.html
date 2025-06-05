@@ -1,12 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 	<h1>{{ birthday.name }} -- {{ birthday.date }}</h1>
 	<h3>{{ time_remaining }} until birthday</h3>
-</body>
-</html>
+	<div id="countdown">
+		{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
+	</div>
+
+	<script>
+	        // Function to update the countdown timer
+	        function updateTimer() {
+	        	var days = parseInt(document.getElementById('countdown').textContent.split(':')[0]);
+	            var hours = parseInt(document.getElementById('countdown').textContent.split(':')[1]);
+	            var minutes = parseInt(document.getElementById('countdown').textContent.split(':')[2]);
+	            var seconds = parseInt(document.getElementById('countdown').textContent.split(':')[3]);
+	 
+	            if (seconds > 0) {
+	                seconds--;
+	            } 
+	            else {
+	                if (minutes > 0) {
+	                    minutes--;
+	                    seconds = 59;
+	                } 
+	                else {
+	                    if (hours > 0) {
+	                        hours--;
+	                        minutes = 59;
+	                        seconds = 59;
+	                    } 
+	                    else {
+	                    	if (days > 0){
+	                    		// Timer has reached zero, you can handle this case as needed
+	                    	}
+	                    }
+	                }
+	            }
+	 
+	            // Update the timer display
+	            document.getElementById('countdown').textContent = 
+	            	(days < 10 ? '0' : '') + days + ' : '+
+	                (hours < 10 ? '0' : '') + hours + ' : ' +
+	                (minutes < 10 ? '0' : '') + minutes + ' : ' +
+	                (seconds < 10 ? '0' : '') + seconds;
+	        }
+	 
+	        // Update the timer every second
+	        setInterval(updateTimer, 1000);
+	    </script>
+	<a href="{% url 'countdown:countdown_list' %}" class="btn btn-warning">Back to list</a>
+{% endblock %}

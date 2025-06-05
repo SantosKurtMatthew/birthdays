@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 	<h1>COUNTDOWNS HERE</h1>
 	<ol>
 	{% for birthday in object_list %}
@@ -13,5 +8,4 @@
 	{% endfor %}
 	</ol>
 	<a href="{% url 'countdown:countdown_create' %}" class="btn btn-warning">Add a Birthday</a>
-</body>
-</html>
+{% endblock %}
