@@ -9,8 +9,9 @@
 	<h1>COUNTDOWNS HERE</h1>
 	<ol>
 	{% for birthday in object_list %}
-		<li>{{ birthday.name }} - {{ birthday.date }}</li>
+		<li><a href='{{ birthday.get_absolute_url }}'>{{ birthday.name }} - {{ birthday.date }}</a></li>
 	{% endfor %}
 	</ol>
+	<a href="{% url 'countdown:countdown_create' %}" class="btn btn-warning">Add a Birthday</a>
 </body>
 </html>

@@ -5,6 +5,8 @@ from django.urls import reverse
 class Birthday(models.Model):
 	name = models.CharField(max_length=255)
 	date = models.DateTimeField()
+	month = models.IntegerField()
+	day = models.IntegerField()
 
 	def __str__(self):
 		return f'{self.name}'
@@ -13,4 +15,4 @@ class Birthday(models.Model):
 		return reverse('countdown:countdown_detail', args=[self.pk])
 
 	class Meta:
-		ordering = ['date']
+		ordering = ['month', 'day']
