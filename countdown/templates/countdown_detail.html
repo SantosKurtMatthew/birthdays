@@ -2,10 +2,9 @@
 
 {% block content %}
 	<h1>{{ birthday.name }} -- {{ birthday.date }}</h1>
-	<h3>{{ time_remaining }} until birthday</h3>
-	<div id="countdown">
+	<div><h2 id="countdown">
 		{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
-	</div>
+	</h2></div>
 
 	<script>
 	        // Function to update the countdown timer

@@ -14,32 +14,64 @@ class CountdownListView(ListView):
     model = Birthday
     template_name = 'countdown_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(CountdownListView, self).get_context_data(**kwargs)
+        nearest_birthday = None
+        smallest_time_remaining = None
+
+        for i in Birthday.objects.all():
+            if (i.month > datetime.datetime.now().month) or (i.month == datetime.datetime.now().month and i.day > datetime.datetime.now().day):
+                remaining_year = datetime.datetime.now().year
+            else:
+                remaining_year = datetime.datetime.now().year+1
+
+            upcoming_birthday = datetime.datetime(
+                remaining_year,
+                i.month,
+                i.day
+            )
+            time_remaining = upcoming_birthday - datetime.datetime.now()
+            
+            if i == Birthday.objects.all()[0] or time_remaining < smallest_time_remaining:
+                smallest_time_remaining = time_remaining
+                nearest_birthday = i
+                context['nearest_birthday'] = nearest_birthday
+                context['days'] = time_remaining.days
+                context['hours'] = time_remaining.seconds // 3600
+                context['minutes'] = (time_remaining.seconds % 3600) // 60
+                context['seconds'] = time_remaining.seconds % 60
+            
+        return context
+
+
 class CountdownDetailView(DetailView):
     model = Birthday
     template_name = 'countdown_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(CountdownDetailView, self).get_context_data(**kwargs)
-        birthday_month = self.get_object().date.month
-        birthday_day = self.get_object().date.day
+        birthday_month = self.get_object().month
+        birthday_day = self.get_object().day
         if (birthday_month > datetime.datetime.now().month) or (birthday_month == datetime.datetime.now().month and birthday_day > datetime.datetime.now().day):
             remaining_year = datetime.datetime.now().year
         else:
             remaining_year = datetime.datetime.now().year+1
-        
+
+        print(remaining_year)
+        print(birthday_month)
+        print(birthday_day)
+        print(datetime.datetime.now())
+
         upcoming_birthday = datetime.datetime(
             remaining_year,
             birthday_month,
             birthday_day
         )
         time_remaining = upcoming_birthday - datetime.datetime.now()
-        context['time_remaining'] = time_remaining
         context['days'] = time_remaining.days
         context['hours'] = time_remaining.seconds // 3600
         context['minutes'] = (time_remaining.seconds % 3600) // 60
         context['seconds'] = time_remaining.seconds % 60
-        
-
         return context
 
 class CountdownCreateView(CreateView):

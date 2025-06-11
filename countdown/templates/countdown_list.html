@@ -8,4 +8,51 @@
 	{% endfor %}
 	</ol>
 	<a href="{% url 'countdown:countdown_create' %}" class="btn btn-warning">Add a Birthday</a>
+
+	<h1>CLOSEST BIRTHDAY : {{ nearest_birthday.name }} on {{ nearest_birthday.date }}</h1>
+	<div><h2 id="countdown">
+		{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
+	</h2></div>
+
+	<script>
+	        // Function to update the countdown timer
+	        function updateTimer() {
+	        	var days = parseInt(document.getElementById('countdown').textContent.split(':')[0]);
+	            var hours = parseInt(document.getElementById('countdown').textContent.split(':')[1]);
+	            var minutes = parseInt(document.getElementById('countdown').textContent.split(':')[2]);
+	            var seconds = parseInt(document.getElementById('countdown').textContent.split(':')[3]);
+	 
+	            if (seconds > 0) {
+	                seconds--;
+	            } 
+	            else {
+	                if (minutes > 0) {
+	                    minutes--;
+	                    seconds = 59;
+	                } 
+	                else {
+	                    if (hours > 0) {
+	                        hours--;
+	                        minutes = 59;
+	                        seconds = 59;
+	                    } 
+	                    else {
+	                    	if (days > 0){
+	                    		// Timer has reached zero, you can handle this case as needed
+	                    	}
+	                    }
+	                }
+	            }
+	 
+	            // Update the timer display
+	            document.getElementById('countdown').textContent = 
+	            	(days < 10 ? '0' : '') + days + ' : '+
+	                (hours < 10 ? '0' : '') + hours + ' : ' +
+	                (minutes < 10 ? '0' : '') + minutes + ' : ' +
+	                (seconds < 10 ? '0' : '') + seconds;
+	        }
+	 
+	        // Update the timer every second
+	        setInterval(updateTimer, 1000);
+	    </script>
 {% endblock %}
