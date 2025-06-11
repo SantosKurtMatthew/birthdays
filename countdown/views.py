@@ -3,13 +3,14 @@ from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-#from django.utils import timezone
 
 from .models import Birthday
 from .forms import BirthdayForm
 
 import datetime
 # Create your views here.
+
+
 class CountdownListView(ListView):
     model = Birthday
     template_name = 'countdown_list.html'
@@ -31,7 +32,7 @@ class CountdownListView(ListView):
                 i.day
             )
             time_remaining = upcoming_birthday - datetime.datetime.now()
-            
+
             if i == Birthday.objects.all()[0] or time_remaining < smallest_time_remaining:
                 smallest_time_remaining = time_remaining
                 nearest_birthday = i
@@ -40,7 +41,7 @@ class CountdownListView(ListView):
                 context['hours'] = time_remaining.seconds // 3600
                 context['minutes'] = (time_remaining.seconds % 3600) // 60
                 context['seconds'] = time_remaining.seconds % 60
-            
+
         return context
 
 
@@ -73,6 +74,7 @@ class CountdownDetailView(DetailView):
         context['minutes'] = (time_remaining.seconds % 3600) // 60
         context['seconds'] = time_remaining.seconds % 60
         return context
+
 
 class CountdownCreateView(CreateView):
     model = Birthday
