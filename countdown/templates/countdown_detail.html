@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h1>{{ birthday.name }} -- {{ birthday.date }}</h1>
+	<h1>{{ birthday.name }} -- {{ birthday.month }}/{{ birthday.day }}</h1>
 	<div><h2 id="countdown">
 		{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
 	</h2></div>
