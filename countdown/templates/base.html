@@ -5,14 +5,24 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
-	<link rel="stylesheet" href="main.css" />
 	{% tailwind_css %}
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&family=Jua&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
-	
+
 </head>
 <body class="bg-[#FCEFB4]">
+	<div class="flex bg-[#DB9065] h-15 relative">
+		<div class="absolute left-1/64 h-full content-center text-[32px] text-[#FCEFB4] font-[Kalam]">Kurt Birthday Calendar</div>
+		<div class="absolute right-1/64 h-full flex flex-row items-stretch">
+			<a href="{% url 'countdown:countdown_list' %}" class="text-[24px] font-[Jua] content-center px-4 border-x-4 border-[#FCEFB4] transition delay-50 duration-300 ease-in-out hover:bg-[#FCEFB4]">
+				View Birthdays
+			</a>
+			<a href="{% url 'countdown:countdown_create' %}" class="text-[24px] font-[Jua] content-center px-4 border-r-4 border-[#FCEFB4] transition delay-50 duration-300 ease-in-out hover:bg-[#FCEFB4]">
+				Add a Birthday
+			</a>
+		</div>
+	</div>
 	<h1 class="text-3xl">This is Birthdays</h1>
 	
 	{% block content %}{% endblock %}

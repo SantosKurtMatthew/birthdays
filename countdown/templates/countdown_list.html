@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<link rel="stylesheet" href="main.css" />
 	<h1 class="text-5xl font-bold underline">COUNTDOWNS HERE</h1>
 
-	<a href="{{ nearest_birthday.get_absolute_url }}"><div class="absolute top-1/12 left-1/4 w-1/2">
+	<a href="{{ nearest_birthday.get_absolute_url }}"><div class="absolute top-1/8 left-1/4 w-1/2">
 		<div class="relative bg-[#F9DC5C] border-5 border-[#F2A359] h-64 rounded-md">
 			<div class="flex flex-col justify-center items-center pt-3">
 				<p class="text-[24px] leading-none font-[Jua]">
@@ -27,6 +26,7 @@
 	<div class="relative size-64 bg-green-500 justify-self-auto">
 		<div class="bg-red-100 absolute right-0 top-0 size-16">1</div>
 		<div class="bg-blue-100 absolute left-16 bottom-16 size-32">2</div>
+		<div class="h-full bg-yellow-100 w-1/4">full</div>
 	</div>
 	<div class="grid grid-cols-3 h-128 content-evenly gap-4">
 	{% for birthday in object_list %}
