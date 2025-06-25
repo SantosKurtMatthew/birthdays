@@ -82,7 +82,13 @@
 	        }
 	 
 	        // Update the timer every second
-	        setInterval(updateTimer, 1000);
+	        var birthday_today = "{{ birthday_today }}"
+	        if (birthday_today == "True"){
+	        	document.getElementById('countdown').textContent = "BIRTHDAY TODAY"
+	        }
+	        else{
+				setInterval(updateTimer, 1000);	
+	        }
 	    </script>
 	
 {% endblock %}

@@ -2,27 +2,25 @@
 
 {% block content %}
 <div class="flex flex-col justify-center my-8">
-	<div class="relative top-1/8 left-1/4 w-1/2">
-	<a href="{{ nearest_birthday.get_absolute_url }}">
-		<div class="relative bg-[#F9DC5C] border-5 border-[#F2A359] h-64 rounded-md">
-			<div class="flex flex-col justify-center items-center pt-3">
-				<p class="text-[24px] leading-none font-[Jua]">
-					The nearest birthday is:
-				</p>
-				<p class="text-[64px] text-[#C76D39] leading-none font-[Kalam] pt-2">
-					{{ nearest_birthday.name }}
-				</p>
-				<p class="text-[48px] leading-none font-[Josefin_Slab]">
-					{{ nearest_birthday.date|date:"M" }} {{ nearest_birthday.day }}
-				</p>
-			</div>
-			<div class="bg-[#FCEFB4] w-2/3 absolute left-1/6 bottom-3 flex justify-center">
-				<h2 id="countdown" class="text-[48px] text-[#DB9065] font-[Josefin_Slab]">
-					{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
-				</h2>
-			</div>
+	<div class="relative top-1/8 left-1/4 w-1/2 relative bg-[#F9DC5C] border-5 border-[#F2A359] h-64 rounded-md">
+		<div class="flex flex-col justify-center items-center pt-3">
+			<p class="text-[24px] leading-none font-[Jua]">
+				The nearest birthday is:
+			</p>
+			<p class="text-[{{ header_font_size}}] text-[#C76D39] text-center leading-none font-[Kalam] pt-2">
+				{% for i in nearest_birthdays %}
+					{{ i.name }}<br>
+				{% endfor %}
+			</p>
+			<p class="text-[48px] leading-none font-[Josefin_Slab]">
+				{{ nearest_birthdays.first.date|date:"M" }} {{ nearest_birthdays.first.day }}
+			</p>
 		</div>
-	</a>
+		<div class="bg-[#FCEFB4] w-2/3 absolute left-1/6 bottom-3 flex justify-center">
+			<h2 id="countdown" class="text-[48px] text-[#DB9065] font-[Josefin_Slab]">
+				{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
+			</h2>
+		</div>
 	</div>
 </div>
 
@@ -35,7 +33,6 @@
 		<div class="flex justify-center">
 		<a href='{{ birthday.get_absolute_url }}' class="w-4/5">	
 			<div class="odd:bg-[#DB9065] even:bg-[#F2A359] rounded-md py-6">
-			
 				<div class="flex justify-center text-[24px] font-[Kalam]">
 					{{ birthday.name }}
 				</div>
@@ -48,8 +45,6 @@
 	{% endfor %}
 	</div>
 </div>
-
-	
 
 	<script>
 	        // Function to update the countdown timer
@@ -89,7 +84,13 @@
 	                (seconds < 10 ? '0' : '') + seconds;
 	        }
 	 
-	        // Update the timer every second
-	        setInterval(updateTimer, 1000);
+	        // Update the timer every second or show a birthday today
+	        var birthday_today = "{{ birthday_today }}"
+	        if (birthday_today == "True"){
+	        	document.getElementById('countdown').textContent = "BIRTHDAY TODAY"
+	        }
+	        else{
+				setInterval(updateTimer, 1000);	
+	        }
 	    </script>
 {% endblock %}

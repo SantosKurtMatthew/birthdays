@@ -33,15 +33,22 @@ class CountdownListView(ListView):
             )
             time_remaining = upcoming_birthday - datetime.datetime.now()
 
-            if i == Birthday.objects.all()[0] or time_remaining < smallest_time_remaining:
+            birthdays_today = Birthday.objects.filter(month=datetime.datetime.now().month).filter(day=datetime.datetime.now().day)
+            if len(birthdays_today) > 0:
+                context['nearest_birthdays'] = birthdays_today
+                context['birthday_today'] = True
+                context['header_font_size'] = str(64//len(context['nearest_birthdays']))+'px'
+                break
+            elif i == Birthday.objects.all()[0] or time_remaining < smallest_time_remaining:
                 smallest_time_remaining = time_remaining
                 nearest_birthday = i
-                context['nearest_birthday'] = nearest_birthday
+                context['nearest_birthdays'] = Birthday.objects.filter(month=nearest_birthday.month).filter(day=nearest_birthday.day)
+                context['birthday_today'] = False
+                context['header_font_size'] = str(64//len(context['nearest_birthdays']))+'px'
                 context['days'] = time_remaining.days
                 context['hours'] = time_remaining.seconds // 3600
                 context['minutes'] = (time_remaining.seconds % 3600) // 60
                 context['seconds'] = time_remaining.seconds % 60
-
         return context
 
 
@@ -58,21 +65,20 @@ class CountdownDetailView(DetailView):
         else:
             remaining_year = datetime.datetime.now().year+1
 
-        print(remaining_year)
-        print(birthday_month)
-        print(birthday_day)
-        print(datetime.datetime.now())
-
         upcoming_birthday = datetime.datetime(
             remaining_year,
             birthday_month,
             birthday_day
         )
         time_remaining = upcoming_birthday - datetime.datetime.now()
-        context['days'] = time_remaining.days
-        context['hours'] = time_remaining.seconds // 3600
-        context['minutes'] = (time_remaining.seconds % 3600) // 60
-        context['seconds'] = time_remaining.seconds % 60
+        if time_remaining.days == 364:
+            context['birthday_today'] = True
+        else:
+            context['birthday_today'] = False
+            context['days'] = time_remaining.days
+            context['hours'] = time_remaining.seconds // 3600
+            context['minutes'] = (time_remaining.seconds % 3600) // 60
+            context['seconds'] = time_remaining.seconds % 60
         return context
 
 

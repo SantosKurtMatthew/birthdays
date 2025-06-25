@@ -1,9 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form method="post"enctype="multipart/form-data">
+<div class='flex justify-center my-8'>
+	<form method="post"enctype="multipart/form-data" class='flex flex-col justify center bg-[#F9DC5C] font-[Jua] w-1/4 border-5 border-[#C76D39] rounded-md'>
 		{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="Submit" class="btn btn-warning">
+		<div class='relative mt-4'>
+			<div class='flex justify-center'>Name</div>
+			{{ form.name }}
+		</div>
+
+		<div class='relative'>
+			<div class='flex justify-center'>Birthday</div>
+			{{ form.date }}
+		</div>
+		<input type="submit" value="Submit" class="bg-[#DB9065] relative left-3/8 w-1/4 h-10 mb-4 rounded-md">
 	</form>
+</div>
+
+<div class="flex justify-center">
+	<a href="{% url 'countdown:countdown_list' %}" class="w-1/8 ">
+		<div class="bg-[#DB9065] rounded-md py-6">
+		
+			<div class="relative left-1/8 bg-[#F9DC5C] w-3/4 flex justify-center text-[24px] font-[Josefin_Slab] rounded-md py-2">
+				Back to list
+			</div>
+		
+		</div>
+	</a>
+</div>
 {% endblock %}
