@@ -1,11 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h1>{{ birthday.name }} -- {{ birthday.month }}/{{ birthday.day }}</h1>
-	<div><h2 id="countdown">
-		{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
-	</h2></div>
 
+<div class="flex flex-col justify-center my-8">
+	<div class="relative top-1/8 left-1/4 w-1/2">
+	<a href="{{ nearest_birthday.get_absolute_url }}">
+		<div class="relative bg-[#F9DC5C] border-5 border-[#F2A359] h-64 rounded-md">
+			<div class="flex flex-col justify-center items-center pt-3">
+				<p class="text-[24px] leading-none font-[Jua]">
+					You are viewing :
+				</p>
+				<p class="text-[64px] text-[#C76D39] leading-none font-[Kalam] pt-2">
+					{{ birthday.name }}
+				</p>
+				<p class="text-[48px] leading-none font-[Josefin_Slab]">
+					{{ birthday.date|date:"M" }} {{ birthday.day }}
+				</p>
+			</div>
+			<div class="bg-[#FCEFB4] w-2/3 absolute left-1/6 bottom-3 flex justify-center">
+				<h2 id="countdown" class="text-[48px] text-[#DB9065] font-[Josefin_Slab]">
+					{{ days|stringformat:"02d"}} : {{ hours|stringformat:"02d" }} : {{ minutes|stringformat:"02d" }} : {{ seconds|stringformat:"02d" }}
+				</h2>
+			</div>
+		</div>
+	</a>
+	</div>
+
+	
+</div>
+
+<div class="flex justify-center">
+	<a href="{% url 'countdown:countdown_list' %}" class="w-1/8 ">
+		<div class="bg-[#DB9065] rounded-md py-6">
+		
+			<div class="relative left-1/8 bg-[#F9DC5C] w-3/4 flex justify-center text-[24px] font-[Josefin_Slab] rounded-md py-2">
+				Back to list
+			</div>
+		
+		</div>
+	</a>
+</div>
+
+
+	
 	<script>
 	        // Function to update the countdown timer
 	        function updateTimer() {
@@ -47,5 +84,5 @@
 	        // Update the timer every second
 	        setInterval(updateTimer, 1000);
 	    </script>
-	<a href="{% url 'countdown:countdown_list' %}" class="btn btn-warning">Back to list</a>
+	
 {% endblock %}

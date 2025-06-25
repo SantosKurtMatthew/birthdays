@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h1 class="text-5xl font-bold underline">COUNTDOWNS HERE</h1>
-
-	<a href="{{ nearest_birthday.get_absolute_url }}"><div class="absolute top-1/8 left-1/4 w-1/2">
+<div class="flex flex-col justify-center my-8">
+	<div class="relative top-1/8 left-1/4 w-1/2">
+	<a href="{{ nearest_birthday.get_absolute_url }}">
 		<div class="relative bg-[#F9DC5C] border-5 border-[#F2A359] h-64 rounded-md">
 			<div class="flex flex-col justify-center items-center pt-3">
 				<p class="text-[24px] leading-none font-[Jua]">
@@ -22,18 +22,32 @@
 				</h2>
 			</div>
 		</div>
-	</div></a>
-	<div class="relative size-64 bg-green-500 justify-self-auto">
-		<div class="bg-red-100 absolute right-0 top-0 size-16">1</div>
-		<div class="bg-blue-100 absolute left-16 bottom-16 size-32">2</div>
-		<div class="h-full bg-yellow-100 w-1/4">full</div>
+	</a>
 	</div>
-	<div class="grid grid-cols-3 h-128 content-evenly gap-4">
+</div>
+
+<hr class="mx-10 border-1 opacity-50">
+<div class="flex justify-center text-[36px] text-[#DB9065] font-[Jua] my-5">All Birthdays</div>
+
+<div class="flex justify-center">
+	<div class="grid grid-cols-3 gap-4 w-4/5">
 	{% for birthday in object_list %}
-		<a href='{{ birthday.get_absolute_url }}'><div class="bg-blue-100">{{ birthday.name }} - {{ birthday.date|date:"M" }} {{ birthday.day }}</div></a>
+		<div class="flex justify-center">
+		<a href='{{ birthday.get_absolute_url }}' class="w-4/5">	
+			<div class="odd:bg-[#DB9065] even:bg-[#F2A359] rounded-md py-6">
+			
+				<div class="flex justify-center text-[24px] font-[Kalam]">
+					{{ birthday.name }}
+				</div>
+				<div class="relative left-1/6 bg-[#F9DC5C] w-2/3 flex justify-center text-[24px] font-[Josefin_Slab] rounded-md py-2">
+					{{ birthday.date|date:"M" }} {{ birthday.day }}
+				</div>
+			</div>
+		</a>
+		</div>
 	{% endfor %}
 	</div>
-	<a href="{% url 'countdown:countdown_create' %}" class="btn btn-warning">Add a Birthday</a>
+</div>
 
 	
 
