@@ -9,14 +9,14 @@ class BirthdayForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(
                 attrs={
-                    'class':'bg-white w-4/5 mb-4 relative left-1/10 text-[24px] flex justify-center text-center',
+                    'class':'bg-white w-4/5 mb-4 relative left-1/10 text-[32px] flex justify-center text-center',
                     'placeholder':'name'
                 }
             ),
             'date': forms.DateInput(
                 attrs={
                     'type': 'date',
-                    'class':'bg-white w-4/5 mb-4 relative left-1/10 text-[24px] flex justify-center'
+                    'class':'bg-white w-4/5 mb-4 relative left-1/10 text-[32px] flex justify-center'
                 },
             ),
         }
